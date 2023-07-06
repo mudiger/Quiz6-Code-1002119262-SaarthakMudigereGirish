@@ -14,6 +14,7 @@ class Game:
         self.answer = None
         self.answer1 = None
         self.answer2 = None
+        self.response = None
 
     def add_player(self, player_name):
         self.players.append(player_name)
@@ -26,19 +27,19 @@ class Game:
     def check_answer1(self, answer1):
         self.answer1 = answer1
         if self.answer == self.answer1:
-            print("OK")
+            self.response = "OK"
             self.cumulative_scores[self.players[0]] += 1
         else:
-            print("NO")
+            self.response = "NO"
             self.cumulative_scores[self.players[0]] -= 2
 
     def check_answer2(self, answer2):
         self.answer2 = answer2
         if self.answer == self.answer2:
-            print("OK")
+            self.response = "OK"
             self.cumulative_scores[self.players[1]] += 1
         else:
-            print("NO")
+            self.response = "NO"
             self.cumulative_scores[self.players[1]] -= 2
 
     # def is_game_over(self):
