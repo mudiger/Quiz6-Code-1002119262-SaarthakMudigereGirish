@@ -31,29 +31,11 @@
 
 <h1>Multiuser Game</h1>
 <h2>Game Play</h2>
-<h3>Current Player: {{ game.current_player }}</h3>
-<h3>Stone Piles:</h3>
-<ul>
-    {% for pile in game.piles %}
-    <li>Pile {{ loop.index }}: {{ pile }}</li>
-    {% endfor %}
-</ul>
 <h3>Player Scores:</h3>
 <ul>
     {% for player, score in game.get_scores().items() %}
     <li>{{ player }}: {{ score }}</li>
     {% endfor %}
 </ul>
-<ul>
-
-    <ul>
-        {% for player, score in game.get_scores().items() %}
-        {% if score == game.single_scores() %}
-        <li>Winning player: {{ player }}: {{ score }}</li>
-        {% endif %}
-        {% endfor %}
-    </ul>
-</ul>
-
 
 </body>

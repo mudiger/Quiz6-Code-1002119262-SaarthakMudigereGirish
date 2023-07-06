@@ -8,11 +8,7 @@ answer = ""
 
 class Game:
     def __init__(self):
-        self.piles = []
         self.players = []
-        self.current_player = None
-        self.min_stones = None
-        self.max_stones = None
         self.cumulative_scores = {}  # Dictionary to store cumulative scores
         self.question = None
         self.answer = None
@@ -27,50 +23,29 @@ class Game:
         self.question = question
         self.answer = answer
 
-    def check_answer_class(self, answer1):
+    def check_answer1(self, answer1):
         self.answer1 = answer1
-        self.current_player = self.players[0]
         if self.answer == self.answer1:
             print("OK")
-            self.cumulative_scores[self.current_player] += 1
+            self.cumulative_scores[self.players[0]] += 1
         else:
             print("NO")
-            self.cumulative_scores[self.current_player] -= 2
-        self.current_player = self.get_next_player()
+            self.cumulative_scores[self.players[0]] -= 2
 
-    def start_game(self):
-        self.current_player = self.players[0]
+    def check_answer2(self, answer2):
+        self.answer2 = answer2
+        if self.answer == self.answer2:
+            print("OK")
+            self.cumulative_scores[self.players[1]] += 1
+        else:
+            print("NO")
+            self.cumulative_scores[self.players[1]] -= 2
 
-    def pick_stones(self, pile_index, num_stones):
-        if self.is_game_over():
-            return "Game over. Please start a new game."
-
-        pile_size = self.piles[pile_index - 1]
-        if num_stones < self.min_stones or num_stones > self.max_stones:
-            return "Invalid number of stones. Please pick between {} and {} stones.".format(
-                self.min_stones, self.max_stones)
-        if num_stones > pile_size:
-            return "Not enough stones in the pile. Please pick a smaller number."
-
-        self.piles[pile_index - 1] -= num_stones
-        self.cumulative_scores[self.current_player] += num_stones  # Add picked stones to the cumulative score
-        self.current_player = self.get_next_player()
-
-        return None
-
-    def is_game_over(self):
-        return all(pile == 0 for pile in self.piles)
-
-    def get_next_player(self):
-        current_player_index = self.players.index(self.current_player)
-        next_player_index = (current_player_index + 1) % len(self.players)
-        return self.players[next_player_index]
+    # def is_game_over(self):
+    #     return all(pile == 0 for pile in self.piles)
 
     def get_scores(self):
         return self.cumulative_scores
-
-    def single_scores(self):
-        return max(self.cumulative_scores.values())
 
 
 game = Game()
@@ -84,14 +59,14 @@ def index():
 @app.route('/check_answer1', methods=['POST'])
 def check_answer1():
     answer1 = request.form['answer1']
-    game.check_answer_class(answer1)
+    game.check_answer1(answer1)
     return render_template('player1.html', game=game)
 
 
 @app.route('/check_answer2', methods=['POST'])
 def check_answer2():
     answer2 = request.form['answer2']
-    game.check_answer_class(answer2)
+    game.check_answer2(answer2)
     return render_template('player2.html', game=game)
 
 
