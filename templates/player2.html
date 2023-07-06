@@ -12,6 +12,12 @@
     <input type="text" id="player2" name="player2" value="{{ player2 }}" required>
     <input type="hidden" id="room" name="room" value="{{ session['room'] }}">
     <input type="submit" value="Enter game">
+    <script>
+        // Refresh the page every 5 seconds (5000 milliseconds)
+        setInterval(function() {
+            location.reload();
+        }, 10000);
+    </script>
 </form>
 
 <h1>Multiuser Game</h1>
