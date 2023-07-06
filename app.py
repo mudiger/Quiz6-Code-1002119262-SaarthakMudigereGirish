@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 rooms = {}
 
-
+#shru
 class Game:
     def __init__(self):
         self.piles = []
