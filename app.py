@@ -15,6 +15,8 @@ class Game:
         self.answer1 = None
         self.answer2 = None
         self.response = None
+        self.lst = []
+
 
     def add_player(self, player_name):
         self.players.append(player_name)
@@ -23,9 +25,12 @@ class Game:
     def judge_values(self, question, answer):
         self.question = question
         self.answer = answer
+        self.lst.append(question)
+        self.lst.append(answer)
 
     def check_answer1(self, answer1):
         self.answer1 = answer1
+        self.lst.append(answer1)
         if self.answer2 == None:
             if self.answer == self.answer1:
                 self.response = "OK"
@@ -37,6 +42,7 @@ class Game:
             self.answer2 = None
 
     def check_answer2(self, answer2):
+        self.lst.append(answer2)
         self.answer2 = answer2
         if self.answer1 == None:
             if self.answer == self.answer2:
