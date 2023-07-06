@@ -3,6 +3,13 @@
 <head>
     <title>Player 2</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+    <script>
+        // Refresh the page every 5 seconds (5000 milliseconds)
+        setInterval(function() {
+            location.reload();
+        }, 10000);
+
+    </script>
 </head>
 <body>
 <h1>Multiplayer Game</h1>
@@ -12,34 +19,23 @@
     <input type="text" id="player2" name="player2" value="{{ player2 }}" required>
     <input type="hidden" id="room" name="room" value="{{ session['room'] }}">
     <input type="submit" value="Enter game">
-    <script>
-        // Refresh the page every 5 seconds (5000 milliseconds)
-        setInterval(function() {
-            location.reload();
-        }, 10000);
-
-    </script>
 </form>
 
 <h1>Multiuser Game</h1>
 <h2>Game Play</h2>
-<h3>Current Player: {{ game.current_player }}</h3>
-<h3>Stone Piles:</h3>
+<h3>Current Player: {{ player2 }}</h3>
+<h3>Player Scores:</h3>
 <ul>
-    {% for pile in game.piles %}
-    <li>Pile {{ loop.index }}: {{ pile }}</li>
+    {% for player, score in game.get_scores().items() %}
+    <li>{{ player }}: {{ score }}</li>
     {% endfor %}
 </ul>
-{% if error_message %}
-<p style="color: red;">{{ error_message }}</p>
-{% endif %}
-<form action="/pick_stones" method="post">
-    <label for="pile_index">Pile Index:</label>
-    <input type="number" id="pile_index" name="pile_index" min="1" max="3" required><br><br>
-    <label for="num_stones">Number of Stones to Pick:</label>
-    <input type="number" id="num_stones" name="num_stones" min="{{ game.min_stones }}" max="{{ game.max_stones }}"
-           required><br><br>
-    <input type="submit" value="Pick Stones">
+<h2>Question: {{question}}</h2>
+<h3>Answer the question:</h3>
+<form action=/check_answer2 method="post">
+    <label for="answer2">Enter answer:</label>
+    <input type="text" id="answer2" name="answer2">
+    <input type="submit" value="Send">
 </form>
 
 </body>
