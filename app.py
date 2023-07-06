@@ -26,21 +26,28 @@ class Game:
 
     def check_answer1(self, answer1):
         self.answer1 = answer1
-        if self.answer == self.answer1:
-            self.response = "OK"
-            self.cumulative_scores[self.players[0]] += 1
+        if self.answer2 == None:
+            if self.answer == self.answer1:
+                self.response = "OK"
+                self.cumulative_scores[self.players[0]] += 1
+            else:
+                self.response = "NO"
+                self.cumulative_scores[self.players[0]] -= 2
         else:
-            self.response = "NO"
-            self.cumulative_scores[self.players[0]] -= 2
+            self.answer2 = None
 
     def check_answer2(self, answer2):
         self.answer2 = answer2
-        if self.answer == self.answer2:
-            self.response = "OK"
-            self.cumulative_scores[self.players[1]] += 1
+        if self.answer1 == None:
+            if self.answer == self.answer2:
+                self.response = "OK"
+                self.cumulative_scores[self.players[1]] += 1
+            else:
+                self.response = "NO"
+                self.cumulative_scores[self.players[1]] -= 2
         else:
-            self.response = "NO"
-            self.cumulative_scores[self.players[1]] -= 2
+            self.answer1 = None
+
 
     # def is_game_over(self):
     #     return all(pile == 0 for pile in self.piles)
