@@ -5,7 +5,7 @@ app = Flask(__name__)
 rooms = {}
 question = ""
 answer = ""
-
+#random
 class Game:
     def __init__(self):
         self.players = []
